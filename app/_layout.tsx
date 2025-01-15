@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 
+
 const RootLayout = () => {
   return (
     <Stack
@@ -11,3 +12,4 @@ const RootLayout = () => {
 };
 
 export default RootLayout;
+

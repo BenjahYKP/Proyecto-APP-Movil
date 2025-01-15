@@ -1,9 +1,12 @@
+
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const HomeScreen = () => {
   const router = useRouter();
 
+
+ 
   return (
     <ImageBackground
       source={require('../assets/images/wave.png')} 
@@ -103,3 +106,4 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+
