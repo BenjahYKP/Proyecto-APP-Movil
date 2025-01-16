@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-
-// Aqui tambien debo modificar cosas
+// Aqui debo modificar cosas
 const countries = [
   'Afghanistan', 'Argentina', 'Australia', 'Brazil', 'Canada', 'Chile', 'China',
   'France', 'Germany', 'India', 'Italy', 'Japan', 'Mexico', 'Spain', 'United States',
