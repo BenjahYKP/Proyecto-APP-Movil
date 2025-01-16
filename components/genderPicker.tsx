@@ -18,7 +18,6 @@ const GenderPicker: React.FC<GenderPickerProps> = ({ selectedGender, onSelect })
 
   return (
     <View style={styles.container}>
-      {/* Campo seleccionable */}
       <TouchableOpacity
         style={styles.input}
         onPress={() => setDropdownVisible((prev) => !prev)}
@@ -33,7 +32,6 @@ const GenderPicker: React.FC<GenderPickerProps> = ({ selectedGender, onSelect })
         />
       </TouchableOpacity>
 
-      {/* Menú desplegable */}
       {isDropdownVisible && (
         <View style={styles.dropdown}>
           {options.map((option) => (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -18,6 +18,13 @@ const BirthDatePicker: React.FC<BirthDatePickerProps> = ({ selectedDate, onSelec
     setShowDatePicker(false);
   };
 
+  const formatDate = (date: Date): string => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <View>
       <TouchableOpacity
@@ -25,10 +32,11 @@ const BirthDatePicker: React.FC<BirthDatePickerProps> = ({ selectedDate, onSelec
         onPress={() => setShowDatePicker(true)}
       >
         <Text style={styles.selectedText}>
-          {selectedDate.toLocaleDateString('es-CL') || 'Selecciona tu fecha'}
+          {selectedDate ? formatDate(selectedDate) : 'Selecciona tu fecha'}
         </Text>
         <Ionicons name="calendar-outline" size={24} color="#4F46E5" />
       </TouchableOpacity>
+
       {showDatePicker && (
         <Modal
           transparent={true}
@@ -41,7 +49,8 @@ const BirthDatePicker: React.FC<BirthDatePickerProps> = ({ selectedDate, onSelec
               <DateTimePicker
                 value={selectedDate}
                 mode="date"
-                display="spinner"
+                display="spinner" 
+                textColor={Platform.OS === 'ios' ? '#333' : undefined} 
                 onChange={handleDateChange}
                 maximumDate={new Date()}
               />
