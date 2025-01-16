@@ -26,9 +26,9 @@ const LoginScreen = () => {
       <Text style={styles.subtitle}>Bienvenido/a de nuevo! Por favor inicia sesión para continuar</Text>
 
       {/* Campo de correo electrónico */}
-      <Text>Correo electrónico</Text>
+      <Text style={styles.inputText}>Correo electrónico</Text>
       <View style={styles.inputContainer}>
-        <Ionicons name="mail-outline" size={20} color="gray" style={styles.icon} />
+        <Ionicons name="mail-outline" size={20} color="black" style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="correoprueba@gmail.com"
@@ -40,9 +40,9 @@ const LoginScreen = () => {
       </View>
 
       {/* Campo de contraseña */}
-      <Text>Contraseña</Text>
+      <Text style={styles.inputText}>Contraseña</Text>
       <View style={styles.inputContainer}>
-        <Ionicons name="lock-closed-outline" size={20} color="gray" style={styles.icon} />
+        <Ionicons name="lock-closed-outline" size={20} color="black" style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="**********"
@@ -71,25 +71,36 @@ const LoginScreen = () => {
       {/* Botón de inicio de sesión */}
       <TouchableOpacity style={styles.loginButton} onPress={() => console.log('Iniciar sesión')}>
         <Text style={styles.loginButtonText}>Iniciar sesión</Text>
+        <Ionicons name="arrow-forward-outline" size={20} color="white" style={styles.iconRight}/>
       </TouchableOpacity>
 
       {/* Enlaces adicionales */}
       <View style={styles.linksContainer}>
-        <TouchableOpacity onPress={() => console.log('Registrarse')}>
-          <Text style={styles.linkText}>Registrarse</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Olvidé mi contraseña')}>
-          <Text style={styles.linkText}>Olvidé mi contraseña</Text>
-        </TouchableOpacity>
-      </View>
+  <View style={styles.linkRow}>
+    <Text style={styles.link}>¿No tienes una cuenta aún? </Text>
+    <TouchableOpacity onPress={() => console.log('Registrarse')}>
+      <Text style={styles.linkText}>Regístrate</Text>
+    </TouchableOpacity>
+  </View>
+  <TouchableOpacity onPress={() => console.log('Olvidé mi contraseña')}>
+    <Text style={styles.linkText}>Olvidé mi contraseña</Text>
+  </TouchableOpacity>
+</View>
+
+<View style={styles.separatorContainer}>
+  <View style={styles.line} />
+  <View style={styles.circle} />
+  <View style={styles.line} />
+</View>
+
 
       {/* Botones de inicio de sesión social */}
       <TouchableOpacity style={styles.socialButton} onPress={() => console.log('Iniciar sesión con Google')}>
-        <Ionicons name="logo-google" size={20} color="white" />
+        <Ionicons name="logo-google" size={22} />
         <Text style={styles.socialButtonText}>Iniciar sesión con Google</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.socialButton, { backgroundColor: '#4267B2' }]} onPress={() => console.log('Iniciar sesión con Facebook')}>
-        <Ionicons name="logo-facebook" size={20} color="white" />
+      <TouchableOpacity style={[styles.socialButton]} onPress={() => console.log('Iniciar sesión con Facebook')}>
+        <Ionicons name="logo-facebook" size={22} />
         <Text style={styles.socialButtonText}>Iniciar sesión con Facebook</Text>
       </TouchableOpacity>
 
@@ -137,9 +148,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: 0.8,
     borderColor: 'gray',
-    borderRadius: 8,
+    borderRadius: 24,
     paddingHorizontal: 10,
     marginBottom: 15,
   },
@@ -156,20 +167,25 @@ const styles = StyleSheet.create({
   rememberMeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 50,
   },
   checkbox: {
     marginRight: 10,
   },
   rememberMeText: {
     color: 'gray',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   loginButton: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: '#4F46E5',
     paddingVertical: 15,
-    borderRadius: 8,
+    borderRadius: 24,
     alignItems: 'center',
     marginBottom: 20,
+    height: 52,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   loginButtonText: {
     color: 'white',
@@ -177,24 +193,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   linksContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 20,
+    alignItems: 'center', // Centrar verticalmente los textos
+  },
+  linkRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8, // Espaciado entre las filas
   },
   linkText: {
     color: '#6C63FF',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
+  
   socialButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#DB4437',
+    backgroundColor: '#FFF',
+    borderWidth: 0.8,
+    borderColor: 'gray',
+    height: 52,
+    borderRadius: 24,
     paddingVertical: 15,
-    borderRadius: 8,
     marginBottom: 10,
   },
   socialButtonText: {
-    color: 'white',
+    color: 'black',
+    fontWeight: 'bold',
     fontSize: 16,
     marginLeft: 10,
   },
@@ -207,6 +235,31 @@ const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 12,
   },
+  inputText: {
+    color: '#1E293B',
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginBottom: 8,
+  },
+  separatorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20, // Espaciado vertical
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#D1D5DB', // Gris claro
+  },
+  circle: {
+    width: 10,
+    height: 10,
+    borderRadius: 5, // Hace el círculo redondo
+    borderColor: 'gray',
+    borderWidth: 2,
+    marginHorizontal: 10, // Espaciado entre la línea y el círculo
+  },
+  
 });
 
 export default LoginScreen;

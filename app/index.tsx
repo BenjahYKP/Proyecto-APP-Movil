@@ -1,6 +1,7 @@
 
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
+import React from 'react';
 
 const HomeScreen = () => {
   const router = useRouter();
