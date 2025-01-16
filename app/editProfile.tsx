@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import CountryPicker from '../components/countryPicker';
 import BirthDatePicker from '../components/birthDatePicker';
+import GenderPicker from '../components/genderPicker';
 
 const EditProfileScreen = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const EditProfileScreen = () => {
     }
     console.log('Datos guardados:', form);
   };
-  
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,10 +106,9 @@ const EditProfileScreen = () => {
           </View>
           <View style={[styles.inputContainer, styles.halfWidth]}>
             <Text style={styles.label}>Género</Text>
-            <TextInput
-              style={styles.input}
-              value={form.gender}
-              onChangeText={(text) => handleInputChange('gender', text)}
+            <GenderPicker
+              selectedGender={form.gender}
+              onSelect={(gender) => handleInputChange('gender', gender)}
             />
           </View>
         </View>
