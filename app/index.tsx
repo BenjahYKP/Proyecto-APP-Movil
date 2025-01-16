@@ -9,21 +9,21 @@ const HomeScreen = () => {
  
   return (
     <ImageBackground
-      source={require('../assets/images/wave.png')} 
+      source={require('../assets/images/fondo5.png')}
       style={styles.background}
-      resizeMode="cover" 
+      resizeMode="cover"
     >
       <View style={styles.container}>
         <Image source={require('../assets/images/iniciologo.png')} style={styles.logo} />
-        <Text style={styles.title}>Bienvenido/a ProFind</Text>
-        <Text style={styles.subtitle}>Busca a miles de profesionales en tu zona</Text>
+        <Text style={[styles.title]}>Bienvenido/a ProFind</Text>
+        <Text style={[styles.subtitle]}>Busca a miles de profesionales en tu zona</Text>
 
         <TouchableOpacity style={styles.buttonlogin} onPress={() => router.push('/login')}>
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
+          <Text style={[styles.buttonText]}>Iniciar Sesión</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonregister} onPress={() => router.push('/register')}>
-          <Text style={styles.buttonTextRegister}>Registrarse</Text>
+          <Text style={[styles.buttonTextRegister]}>Regístrate</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -32,75 +32,79 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1, 
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 80,
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   logo: {
-    height: 300,
-    width: 300,
-    marginBottom: 20,
+    height: 250,
+    width: 250,
+    marginBottom: 30,
   },
   title: {
-    fontSize: 34,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#4F46E5',
-    marginBottom: 10,
+    textAlign: 'center',
+    marginBottom: 8,
   },
   subtitle: {
-    fontSize: 13,
-    color: '#8B8B8B',
-    marginBottom: 10,
+    fontSize: 14,
+    color: '#adadad',
+    textAlign: 'center',
+    marginBottom: 30,
   },
   buttonlogin: {
     backgroundColor: '#4F46E5',
-    width: 300,
-    height: 50,
-    marginTop: 80,
-    borderRadius: 100,
-    borderWidth: 0.5,
-    borderColor: '#8B8B8B',
+    width: 280,
+    height: 48,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowRadius: 4,
+    elevation: 6,
   },
   buttonregister: {
     backgroundColor: '#FFF',
-    width: 300,
-    height: 50,
-    borderRadius: 100,
-    borderWidth: 0.5,
-    borderColor: '#8B8B8B',
+    width: 280,
+    height: 48,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#e7e7e7',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 6,
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFF',
     fontSize: 16,
+    fontWeight: '600',
   },
   buttonTextRegister: {
-    color: '#000',
+    color: '#4e4e4e',
     fontSize: 16,
   },
 });
