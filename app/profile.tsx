@@ -2,10 +2,25 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
 const ProfileScreen = () => {
-  const MenuItem = ({ icon, text, rightText = null, isLast = false }: { icon: keyof typeof Ionicons.glyphMap; text: string; rightText?: string | null; isLast?: boolean }) => (
-    <TouchableOpacity style={[styles.menuItem, !isLast && styles.menuItemBorder]}>
+  const router = useRouter();
+
+  const MenuItem = ({
+    icon,
+    text,
+    rightText = null,
+    isLast = false,
+    onPress,
+  }: {
+    icon: keyof typeof Ionicons.glyphMap;
+    text: string;
+    rightText?: string | null;
+    isLast?: boolean;
+    onPress?: () => void;
+  }) => (
+    <TouchableOpacity style={[styles.menuItem, !isLast && styles.menuItemBorder]} onPress={onPress}>
       <Ionicons name={icon} size={22} color="#4F46E5" style={styles.menuIcon} />
       <Text style={styles.menuText}>{text}</Text>
       {rightText && (
@@ -39,7 +54,11 @@ const ProfileScreen = () => {
         </View>
 
         <View style={styles.menuSection}>
-          <MenuItem icon="person-outline" text="Editar perfil" />
+          <MenuItem
+            icon="person-outline"
+            text="Editar perfil"
+            onPress={() => router.push('/editProfile')}
+          />
           <MenuItem icon="notifications-outline" text="Notificaciones" rightText="ON" />
           <MenuItem icon="language-outline" text="Idioma" rightText="Español" isLast />
         </View>
