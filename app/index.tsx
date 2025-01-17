@@ -23,7 +23,7 @@ const HomeScreen = () => {
           <Text style={[styles.buttonText]}>Iniciar Sesión</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonregister} onPress={() => router.push('/register')}>
+        <TouchableOpacity style={styles.buttonregister} onPress={() => router.push('/register/home')}>
           <Text style={[styles.buttonTextRegister]}>Regístrate</Text>
         </TouchableOpacity>
       </View>

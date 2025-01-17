@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
-const RegisterScreen = () => {
+const RegisterHomeScreen = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -81,9 +81,13 @@ const RegisterScreen = () => {
       </View>
 
       {/* Botón de registro */}
-      <TouchableOpacity style={styles.registerButton} onPress={() => console.log('Registrarse')}>
-        <Text style={styles.registerButtonText}>Registrarse</Text>
-      </TouchableOpacity>
+      <TouchableOpacity
+  style={styles.registerButton}
+  onPress={() => router.push('/register/register')}
+>
+  <Text style={styles.registerButtonText}>Registrarse</Text>
+</TouchableOpacity>
+
 
       {/* Separador */}
       <View style={styles.separatorContainer}>
@@ -226,4 +230,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default RegisterHomeScreen;
