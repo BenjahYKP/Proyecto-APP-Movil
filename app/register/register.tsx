@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,7 +18,7 @@ const RegisterScreen = () => {
   const [telefono, setTelefono] = useState('');
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       {/* Botón para volver */}
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="arrow-back-outline" size={24} color="black" />
@@ -84,10 +83,10 @@ const RegisterScreen = () => {
   style={styles.continueButton}
   onPress={() => router.push('/register/profiletype')} // Cambia 'next-screen' por la ruta correcta
 >
-  <Text style={styles.continueButtonText}>Continue</Text>
+  <Text style={styles.continueButtonText}>Continuar</Text>
 </TouchableOpacity>
 
-    </ScrollView>
+    </View>
   );
 };
 
@@ -95,6 +94,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: 'white',
+    justifyContent: 'center',
     padding: 20,
     paddingTop: 60,
   },
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#D1D5DB',
-    borderRadius: 8,
+    borderRadius: 24,
     paddingHorizontal: 10,
     paddingVertical: 12,
     marginBottom: 15,
@@ -141,6 +141,14 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 6,
   },
   continueButtonText: {
     color: 'white',
