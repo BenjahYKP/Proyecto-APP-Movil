@@ -9,11 +9,11 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
-const LoginScreen = () => {
+const RegisterHomeScreen = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -22,8 +22,11 @@ const LoginScreen = () => {
         <Ionicons name="arrow-back-outline" size={24} color="black" />
       </TouchableOpacity>
 
-      <Text style={styles.title}>Iniciar Sesión</Text>
-      <Text style={styles.subtitle}>Bienvenido/a de nuevo! Por favor inicia sesión para continuar</Text>
+      {/* Título y descripción */}
+      <Text style={styles.title}>Registrarse</Text>
+      <Text style={styles.subtitle}>
+        Crea una cuenta para empezar a promocionar tus servicios con el mundo!
+      </Text>
 
       {/* Campo de correo electrónico */}
       <Text style={styles.inputText}>Correo electrónico</Text>
@@ -31,7 +34,7 @@ const LoginScreen = () => {
         <Ionicons name="mail-outline" size={20} color="black" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="correoprueba@gmail.com"
+          placeholder="correo@gmail.com"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -53,66 +56,55 @@ const LoginScreen = () => {
         <Ionicons name="eye-outline" size={20} color="gray" style={styles.iconRight} />
       </View>
 
-      {/* Recordarme */}
-      <View style={styles.rememberMeContainer}>
+      {/* Aceptar términos y condiciones */}
+      <View style={styles.termsContainer}>
         <TouchableOpacity
           style={styles.checkbox}
-          onPress={() => setRememberMe(!rememberMe)}
+          onPress={() => setAgreeToTerms(!agreeToTerms)}
         >
           <Ionicons
-            name={rememberMe ? "checkbox-outline" : "square-outline"}
+            name={agreeToTerms ? "checkbox-outline" : "square-outline"}
             size={20}
             color="gray"
           />
         </TouchableOpacity>
-        <Text style={styles.rememberMeText}>Recordarme durante 30 días</Text>
+        <Text style={styles.termsText}>
+          Al continuar, acepta nuestro{' '}
+          <Text style={styles.linkText} onPress={() => console.log('Acuerdo de usuario')}>
+            Acuerdo de usuario
+          </Text>{' '}
+          y reconoce que comprende la{' '}
+          <Text style={styles.linkText} onPress={() => console.log('Política de privacidad')}>
+            Política de privacidad
+          </Text>.
+        </Text>
       </View>
 
-      {/* Botón de inicio de sesión */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => console.log('Iniciar sesión')}>
-        <Text style={styles.loginButtonText}>Iniciar sesión</Text>
-        <Ionicons name="arrow-forward-outline" size={20} color="white" style={styles.iconRight}/>
-      </TouchableOpacity>
+      {/* Botón de registro */}
+      <TouchableOpacity
+  style={styles.registerButton}
+  onPress={() => router.push('/register/register')}
+>
+  <Text style={styles.registerButtonText}>Registrarse</Text>
+</TouchableOpacity>
 
-      {/* Enlaces adicionales */}
-      <View style={styles.linksContainer}>
-  <View style={styles.linkRow}>
-    <Text style={styles.link}>¿No tienes una cuenta aún? </Text>
-    <TouchableOpacity onPress={() => console.log('Registrarse')}>
-      <Text style={styles.linkText}>Regístrate</Text>
-    </TouchableOpacity>
-  </View>
-  <TouchableOpacity onPress={() => console.log('Olvidé mi contraseña')}>
-    <Text style={styles.linkText}>Olvidé mi contraseña</Text>
-  </TouchableOpacity>
-</View>
 
-<View style={styles.separatorContainer}>
-  <View style={styles.line} />
-  <View style={styles.circle} />
-  <View style={styles.line} />
-</View>
-
+      {/* Separador */}
+      <View style={styles.separatorContainer}>
+        <View style={styles.line} />
+        <View style={styles.circle} />
+        <View style={styles.line} />
+      </View>
 
       {/* Botones de inicio de sesión social */}
-      <TouchableOpacity style={styles.socialButton} onPress={() => console.log('Iniciar sesión con Google')}>
+      <TouchableOpacity style={styles.socialButton} onPress={() => console.log('Registrarse con Google')}>
         <Ionicons name="logo-google" size={22} />
-        <Text style={styles.socialButtonText}>Iniciar sesión con Google</Text>
+        <Text style={styles.socialButtonText}>Registrarse con Google</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.socialButton]} onPress={() => console.log('Iniciar sesión con Facebook')}>
+      <TouchableOpacity style={[styles.socialButton]} onPress={() => console.log('Registrarse con Facebook')}>
         <Ionicons name="logo-facebook" size={22} />
-        <Text style={styles.socialButtonText}>Iniciar sesión con Facebook</Text>
+        <Text style={styles.socialButtonText}>Registrarse con Facebook</Text>
       </TouchableOpacity>
-
-      {/* Políticas */}
-      <View style={styles.policyContainer}>
-        <TouchableOpacity onPress={() => console.log('Privacy Policy')}>
-          <Text style={styles.policyText}>Privacy Policy</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Terms & Conditions')}>
-          <Text style={styles.policyText}>Terms & Conditions</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -164,50 +156,68 @@ const styles = StyleSheet.create({
   iconRight: {
     marginLeft: 10,
   },
-  rememberMeContainer: {
+  inputText: {
+    color: '#1E293B',
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginBottom: 8,
+  },
+  termsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: 20,
   },
   checkbox: {
     marginRight: 10,
   },
-  rememberMeText: {
+  termsText: {
+    fontSize: 12,
     color: 'gray',
-    fontSize: 14,
+    flex: 1,
+  },
+  linkText: {
+    color: '#6C63FF',
     fontWeight: 'bold',
   },
-  loginButton: {
+  registerButton: {
     backgroundColor: '#4F46E5',
     paddingVertical: 15,
     borderRadius: 24,
     alignItems: 'center',
     marginBottom: 20,
     height: 52,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 6,
   },
-  loginButtonText: {
+  registerButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  linksContainer: {
-    marginBottom: 20,
-    alignItems: 'center', // Centrar verticalmente los textos
-  },
-  linkRow: {
+  separatorContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8, // Espaciado entre las filas
+    marginVertical: 20,
   },
-  linkText: {
-    color: '#6C63FF',
-    fontSize: 14,
-    fontWeight: 'bold',
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#D1D5DB',
   },
-  
+  circle: {
+    width: 10,
+    height: 10,
+    borderRadius: 5, // Hace el círculo redondo
+    borderColor: 'gray',
+    borderWidth: 2,
+    marginHorizontal: 10, // Espaciado entre la línea y el círculo
+  },
   socialButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -226,40 +236,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
   },
-  policyContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-  },
-  policyText: {
-    color: 'gray',
-    fontSize: 12,
-  },
-  inputText: {
-    color: '#1E293B',
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom: 8,
-  },
-  separatorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20, // Espaciado vertical
-  },
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#D1D5DB', // Gris claro
-  },
-  circle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5, // Hace el círculo redondo
-    borderColor: 'gray',
-    borderWidth: 2,
-    marginHorizontal: 10, // Espaciado entre la línea y el círculo
-  },
-  
 });
 
-export default LoginScreen;
+export default RegisterHomeScreen;
