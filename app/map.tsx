@@ -16,6 +16,13 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
+// Componente separado para el contenido del Callout
+const CalloutContent = React.memo(({ text }: { text: string }) => (
+  <View style={{ backgroundColor: "white", padding: 10 }}>
+    <Text>{text || "Sin mensaje"}</Text>
+  </View>
+));
+
 export default class Map extends Component {
   state: {
     location: {
@@ -109,7 +116,9 @@ export default class Map extends Component {
           }
         });
         console.log("Mensajes obtenidos:", messages);
-        this.setState({ messages });
+
+        // Asegurarse de crear una nueva referencia de arreglo
+        this.setState({ messages: [...messages] });
         console.log("Estado de mensajes actualizado:", this.state.messages);
       });
   };
@@ -190,9 +199,7 @@ export default class Map extends Component {
               }}
             >
               <Callout>
-                <View style={{ backgroundColor: "white", padding: 10 }}>
-                  <Text>{message.text || "Sin mensaje"}</Text>
-                </View>
+                <CalloutContent text={message.text} />
               </Callout>
             </Marker>
           ))}
@@ -206,9 +213,7 @@ export default class Map extends Component {
               pinColor="blue"
             >
               <Callout>
-                <View style={{ backgroundColor: "white", padding: 10 }}>
-                  <Text>¡Ubicación actual cargada!</Text>
-                </View>
+                <CalloutContent text="¡Ubicación actual cargada!" />
               </Callout>
             </Marker>
           )}
@@ -254,6 +259,3 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
 });
-
-/*      <Button title="Mapa" onPress={() => router.push('/map')} />
- */

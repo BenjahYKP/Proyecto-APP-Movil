@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Button
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -73,6 +74,7 @@ const LoginScreen = () => {
         <Text style={styles.loginButtonText}>Iniciar sesión</Text>
         <Ionicons name="arrow-forward-outline" size={20} color="white" style={styles.iconRight}/>
       </TouchableOpacity>
+      <Button title="Mapa" onPress={() => router.push('/map')} />
 
       {/* Enlaces adicionales */}
       <View style={styles.linksContainer}>
