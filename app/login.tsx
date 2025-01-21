@@ -5,15 +5,28 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { auth } from '../firebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginScreen = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      Alert.alert('Inicio de sesión exitoso', `Bienvenido, ${userCredential.user.email}`);
+      router.push('/profile');
+    } catch (error) {
+      Alert.alert('Error', (error as any).message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -69,7 +82,7 @@ const LoginScreen = () => {
       </View>
 
       {/* Botón de inicio de sesión */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => console.log('Iniciar sesión')}>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Iniciar sesión</Text>
         <Ionicons name="arrow-forward-outline" size={20} color="white" style={styles.iconRight}/>
       </TouchableOpacity>
@@ -77,7 +90,7 @@ const LoginScreen = () => {
       {/* Enlaces adicionales */}
       <View style={styles.linksContainer}>
   <View style={styles.linkRow}>
-    <Text style={styles.link}>¿No tienes una cuenta aún? </Text>
+    <Text style={styles.linkText}>¿No tienes una cuenta aún? </Text>
     <TouchableOpacity onPress={() => console.log('Registrarse')}>
       <Text style={styles.linkText}>Regístrate</Text>
     </TouchableOpacity>
