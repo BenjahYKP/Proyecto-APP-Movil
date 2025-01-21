@@ -57,7 +57,7 @@ const ProfileScreen = () => {
           <MenuItem
             icon="person-outline"
             text="Editar perfil"
-            onPress={() => router.push('/editProfile')}
+            onPress={() => router.push('../profile/editProfile')}
           />
           <MenuItem icon="notifications-outline" text="Notificaciones" rightText="ON" />
           <MenuItem icon="language-outline" text="Idioma" rightText="Español" isLast />
