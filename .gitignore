@@ -37,5 +37,5 @@ yarn-error.*
 
 app-example
 
-#configuracion de firebase
-config/
+# firebase
+.env
