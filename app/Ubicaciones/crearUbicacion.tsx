@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import firebase from "../../config/firebase";  
-import { firestore } from "../../config/firebase";
+import { auth, firestore } from "../../config/firebase";
 import { MaterialIcons } from "@expo/vector-icons";
 import Geocoder from "react-native-geocoding";
-import { GEOCODER_API_KEY } from '@env';
+import { GEOCODER_API_KEY } from "@env";
+import { collection, addDoc } from "firebase/firestore";
 
 import {
   TextInput,
@@ -117,16 +117,25 @@ export default class Map extends Component {
     }
 
     try {
+      // Obtener el UID del usuario autenticado
+      const user = auth.currentUser;
+
+      if (!user) {
+        Alert.alert("Error", "No hay un usuario autenticado.");
+        return;
+      }
+
       // Datos a guardar
       const locationData = {
         latitude: markerPosition.latitude,
         longitude: markerPosition.longitude,
         timestamp: new Date(),
-        userId: "usuario123",
+        userId: user.uid,
+        email: user.email,
       };
 
-      // Guardar en firestore database
-      await firestore.collection("locations").add(locationData);
+      // Guardar en Firestore
+      await addDoc(collection(firestore, "locations"), locationData);
 
       Alert.alert(
         "Ubicación guardada",
@@ -134,7 +143,10 @@ export default class Map extends Component {
       );
     } catch (error) {
       console.error("Error al guardar la ubicación:", error);
-      Alert.alert("Error", "No se pudo guardar la ubicación. Intenta de nuevo.");
+      Alert.alert(
+        "Error",
+        "No se pudo guardar la ubicación. Intenta de nuevo."
+      );
     }
   };
 
