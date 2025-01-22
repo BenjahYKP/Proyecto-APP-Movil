@@ -1,50 +1,44 @@
-# Welcome to your Expo app 👋
+# ProFind
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+ProFind es una aplicación móvil diseñada para conectar a usuarios con profesionales dentro de su área local. Inspirada en plataformas como PedidosYa, pero enfocada en la contratación de servicios profesionales, ProFind facilita la búsqueda y contratación de expertos en diversas disciplinas de forma rápida y eficiente.
 
-## Get started
+## Características principales
 
-1. Install dependencies
+- **Búsqueda de profesionales cercanos**: Utiliza el GPS para mostrar profesionales disponibles dentro del área del usuario.
+- **Gestín de perfiles**: Tanto los usuarios como los profesionales pueden crear y personalizar sus perfiles.
+- **Sistema de calificación y comentarios**: Permite a los usuarios calificar y dejar opiniones sobre los servicios recibidos.
+- **Sistema de membresía**: Incluye opciones de pago para acceder a funcionalidades premium.
+- **Interfaz intuitiva**: Diseñada para facilitar una experiencia de usuario fluida y amigable.
 
+## Tecnologías utilizadas
+
+- **Frontend**: React Native con Expo Go.
+- **Backend**: Node.js con Express.
+- **Base de datos**: Firebase.
+- **Autenticación**: Firebase Authentication.
+- **Geolocalización**: APIs de Google Maps.
+
+## Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/BenjahYKP/Proyecto-APP-Movil.git
+   ```
+2. Navega al directorio del proyecto:
+   ```bash
+   cd Proyecto-APP-Movil
+   ```
+3. Instala las dependencias:
    ```bash
    npm install
    ```
-
-2. Start the app
-
+4. Inicia la aplicación con Expo Go:
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Contacto
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Si tienes alguna pregunta o sugerencia sobre ProFind, no dudes en ponerte en contacto.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Autores**: Benjamin Ortiz, Jonathan Olivares y Rocío Rivas
