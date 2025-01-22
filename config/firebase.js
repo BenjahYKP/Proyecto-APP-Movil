@@ -2,10 +2,14 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
 import 'firebase/compat/firestore';
-import {
-    FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DATABASE_URL,
-    FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID,
-    FIREBASE_APP_ID
+import { 
+    FIREBASE_API_KEY, 
+    FIREBASE_AUTH_DOMAIN, 
+    FIREBASE_DATABASE_URL, 
+    FIREBASE_PROJECT_ID, 
+    FIREBASE_STORAGE_BUCKET, 
+    FIREBASE_MESSAGING_SENDER_ID, 
+    FIREBASE_APP_ID 
 } from '@env';
 
 const firebaseConfig = {
@@ -23,4 +27,6 @@ if (!firebase.apps.length) {
 }
 
 export const firestore = firebase.firestore();
+export const auth = firebase.auth();
+export const database = firebase.database();
 export default firebase;
