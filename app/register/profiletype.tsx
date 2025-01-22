@@ -12,7 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { doc, updateDoc } from "firebase/firestore";
-import { auth, firestore } from "../../firebaseConfig"; // Asegúrate de importar correctamente Firebase
+import { auth, firestore } from "../../config/firebase"; // Asegúrate de importar correctamente Firebase
 
 const ProfileTypeScreen = () => {
   const router = useRouter();

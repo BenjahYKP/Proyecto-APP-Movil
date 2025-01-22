@@ -13,7 +13,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { doc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { auth, firestore, storage } from '../../firebaseConfig';
+import { auth, firestore, storage } from '../../config/firebase';
 
 const UploadID = () => {
   const router = useRouter();

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { auth } from '../firebaseConfig';
+import { auth } from '../config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginScreen = () => {

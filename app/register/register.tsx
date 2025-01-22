@@ -10,7 +10,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { doc, setDoc } from 'firebase/firestore'; 
-import { auth, firestore } from '../../firebaseConfig'; 
+import { auth, firestore } from '../../config/firebase'; 
 
 const RegisterScreen = () => {
   const router = useRouter();
