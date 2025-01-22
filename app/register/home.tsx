@@ -35,7 +35,7 @@ const RegisterHomeScreen = () => {
         // Crear usuario en Firebase Authentication
         await createUserWithEmailAndPassword(auth, email, password);
         Alert.alert('Éxito', 'Usuario registrado exitosamente.');
-        router.push('/register/finishregister');
+        router.push('/register/register');
       } catch (error: any) {
         // Manejo de errores
         let errorMessage = 'Algo salió mal. Inténtalo de nuevo.';

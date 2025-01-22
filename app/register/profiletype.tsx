@@ -1,19 +1,61 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Modal, FlatList } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Modal,
+  FlatList,
+  Alert,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { doc, updateDoc } from "firebase/firestore";
+import { auth, firestore } from "../../firebaseConfig"; // Asegúrate de importar correctamente Firebase
 
 const ProfileTypeScreen = () => {
   const router = useRouter();
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const options = [
-    { label: 'Seleccione una opción', value: '0' },
-    { label: 'Desea ofrecer servicios', value: '1' },
-    { label: 'Desea contratar servicios', value: '2' },
-    { label: 'Ambas', value: '3' },
+    { label: "Seleccione una opción", value: "0" },
+    { label: "Desea ofrecer servicios", value: "1" },
+    { label: "Desea contratar servicios", value: "2" },
+    { label: "Ambas", value: "3" },
   ];
+
+  const handleContinue = async () => {
+    if (!selectedOption || selectedOption === "0") {
+      Alert.alert("Error", "Por favor, seleccione una opción antes de continuar.");
+      return;
+    }
+
+    const userId = auth.currentUser?.uid; // ID del usuario autenticado
+    if (!userId) {
+      Alert.alert("Error", "No se pudo identificar al usuario.");
+      return;
+    }
+
+    try {
+      // Guarda el tipo de perfil en Firestore
+      const userDocRef = doc(firestore, "users", userId);
+      await updateDoc(userDocRef, {
+        profileType: selectedOption,
+      });
+
+      // Navega según la selección del usuario
+      if (selectedOption === "1" || selectedOption === "3") {
+        router.push("/register/uploadid"); // Pantalla para ofrecer servicios (subir carnet, rubro, precio, etc.)
+      } else if (selectedOption === "2") {
+        router.push("/map/home"); // Pantalla para contratar servicios
+      }
+    } catch (error) {
+      console.error("Error al guardar el tipo de perfil:", error);
+      Alert.alert("Error", "Hubo un problema al guardar tu selección. Inténtalo de nuevo.");
+    }
+  };
 
   const renderOption = ({ item }: { item: { label: string; value: string } }) => (
     <TouchableOpacity
@@ -29,15 +71,15 @@ const ProfileTypeScreen = () => {
 
   return (
     <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-              <Ionicons name="arrow-back-outline" size={24} color="black" />
-            </TouchableOpacity>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Ionicons name="arrow-back-outline" size={24} color="black" />
+      </TouchableOpacity>
       {/* Título */}
       <Text style={styles.title}>Tipo de perfil</Text>
 
       {/* Imagen */}
       <View style={styles.imageContainer}>
-        <Image source={require('../../assets/images/profiletype.png')} style={styles.image} />
+        <Image source={require("../../assets/images/profiletype.png")} style={styles.image} />
       </View>
 
       {/* Dropdown */}
@@ -47,7 +89,7 @@ const ProfileTypeScreen = () => {
         onPress={() => setDropdownVisible(true)}
       >
         <Text style={styles.dropdownText}>
-          {options.find((opt) => opt.value === selectedOption)?.label || 'Seleccione una opción'}
+          {options.find((opt) => opt.value === selectedOption)?.label || "Seleccione una opción"}
         </Text>
         <Ionicons name="chevron-down" size={20} color="gray" />
       </TouchableOpacity>
@@ -75,24 +117,12 @@ const ProfileTypeScreen = () => {
       </Modal>
 
       {/* Botón Continuar */}
-      <TouchableOpacity
-  style={styles.continueButton}
-  onPress={() => {
-    if (selectedOption === '1' || selectedOption === '3') {
-      router.push('/register/uploadid');
-    } else if (selectedOption === '2') {
-      router.push('/map/home');
-    } else {
-      alert('Por favor, seleccione una opción antes de continuar.');
-    }
-  }}
->
-  <Text style={styles.continueButtonText}>Continuar</Text>
-</TouchableOpacity>
-
+      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+        <Text style={styles.continueButtonText}>Continuar</Text>
+      </TouchableOpacity>
 
       {/* Ayuda */}
-      <TouchableOpacity style={styles.helpContainer} onPress={() => console.log('¿Necesitas ayuda?')}>
+      <TouchableOpacity style={styles.helpContainer} onPress={() => console.log("¿Necesitas ayuda?")}>
         <Text style={styles.helpText}>¿Necesitas ayuda?</Text>
         <Ionicons name="help-circle-outline" size={20} color="black" />
       </TouchableOpacity>
@@ -101,6 +131,7 @@ const ProfileTypeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     padding: 20,

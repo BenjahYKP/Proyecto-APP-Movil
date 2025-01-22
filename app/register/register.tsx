@@ -5,9 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { doc, setDoc } from 'firebase/firestore'; 
+import { auth, firestore } from '../../firebaseConfig'; 
 
 const RegisterScreen = () => {
   const router = useRouter();
@@ -16,6 +19,36 @@ const RegisterScreen = () => {
   const [rut, setRut] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [telefono, setTelefono] = useState('');
+
+  const handleContinue = async () => {
+    if (!nombre || !apellido || !rut || !fechaNacimiento || !telefono) {
+      Alert.alert('Error', 'Por favor, completa todos los campos.');
+      return;
+    }
+
+    try {
+      const userId = auth.currentUser?.uid; 
+      if (!userId) {
+        Alert.alert('Error', 'No se pudo obtener el usuario actual. Inténtalo de nuevo.');
+        return;
+      }
+
+      const userDocRef = doc(firestore, 'users', userId);
+      await setDoc(userDocRef, {
+        nombre,
+        apellido,
+        rut,
+        fechaNacimiento,
+        telefono,
+        registrationStep: 2, 
+      });
+
+      router.push('/register/profiletype');
+    } catch (error) {
+      console.error('Error al guardar los datos:', error);
+      Alert.alert('Error', 'No se pudieron guardar los datos. Inténtalo más tarde.');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -79,13 +112,9 @@ const RegisterScreen = () => {
       />
 
       {/* Botón Continuar */}
-      <TouchableOpacity
-  style={styles.continueButton}
-  onPress={() => router.push('/register/profiletype')} // Cambia 'next-screen' por la ruta correcta
->
-  <Text style={styles.continueButtonText}>Continuar</Text>
-</TouchableOpacity>
-
+      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+        <Text style={styles.continueButtonText}>Continuar</Text>
+      </TouchableOpacity>
     </View>
   );
 };
