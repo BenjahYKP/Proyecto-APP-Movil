@@ -3,6 +3,8 @@ import MapView, { Marker, Callout } from "react-native-maps";
 import { getRegion } from "./helpers/map";
 import * as Location from "expo-location";
 import firebase from "../config/firebase";
+import { firestore } from '../config/firebase';
+
 import {
   TextInput,
   TouchableOpacity,
@@ -45,14 +47,14 @@ export default class Map extends Component {
     },
     messageText: "",
     sendButtonActive: false,
-    messages: [], // Almacena los mensajes enviados con su ubicación
+    messages: [], 
   };
 
   private map: MapView | null = null;
 
   componentDidMount() {
     this.getLocation();
-    this.listenToMessages(); // Escucha los mensajes en Firebase
+    this.listenToMessages(); 
   }
 
   getLocation = async () => {
@@ -88,7 +90,7 @@ export default class Map extends Component {
       this.setState({
         location: {
           latitude: 48.860831,
-          longitude: 2.341129, // Ejemplo: París
+          longitude: 2.341129, 
         },
       });
     }
@@ -151,7 +153,7 @@ export default class Map extends Component {
           timestamp: firebase.database.ServerValue.TIMESTAMP,
         })
         .then(() => {
-          this.setState({ messageText: "" }); // Limpia el campo del mensaje
+          this.setState({ messageText: "" }); 
           ToastAndroid.show("Your message has been sent!", ToastAndroid.SHORT);
           Keyboard.dismiss();
         })

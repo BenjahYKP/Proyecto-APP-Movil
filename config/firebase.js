@@ -1,19 +1,32 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
+import 'firebase/compat/firestore';
+import { 
+    FIREBASE_API_KEY, 
+    FIREBASE_AUTH_DOMAIN, 
+    FIREBASE_DATABASE_URL, 
+    FIREBASE_PROJECT_ID, 
+    FIREBASE_STORAGE_BUCKET, 
+    FIREBASE_MESSAGING_SENDER_ID, 
+    FIREBASE_APP_ID 
+} from '@env';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCB3DJar7xtVckepxQoCnx4rfhNf4DQ6f0",
-    authDomain: "app-profgps.firebaseapp.com",
-    databaseURL: "https://app-profgps-default-rtdb.firebaseio.com/",
-    projectId: "app-profgps",
-    storageBucket: "app-profgps.firebasestorage.app",
-    messagingSenderId: "51908071871",
-    appId: "1:51908071871:web:f8fc763df5e508e215910a"
+    apiKey: FIREBASE_API_KEY,
+    authDomain: FIREBASE_AUTH_DOMAIN,
+    databaseURL: FIREBASE_DATABASE_URL,
+    projectId: FIREBASE_PROJECT_ID,
+    storageBucket: FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+    appId: FIREBASE_APP_ID
 };
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
+export const firestore = firebase.firestore();
+export const auth = firebase.auth();
+export const database = firebase.database();
 export default firebase;
