@@ -3,6 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react",
+    "esModuleInterop": true,
     "paths": {
       "@/*": [
         "./*"
@@ -13,6 +14,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "env.d.ts"
+
   ]
 }
