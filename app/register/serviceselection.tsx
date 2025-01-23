@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  FlatList,
+  Alert,
+  Image,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { doc, updateDoc } from 'firebase/firestore'; 
+import { auth, firestore } from '../../config/firebase'; 
 
 const ServiceSelectionScreen = () => {
   const router = useRouter();
@@ -14,7 +25,34 @@ const ServiceSelectionScreen = () => {
     { label: 'Carpintero', value: 'carpintero' },
   ];
 
-  const renderService = ({ item }: { item: { label: string; value: string } }) => (
+  const handleContinue = async () => {
+    if (!selectedService) {
+      Alert.alert('Error', 'Por favor, selecciona un servicio.');
+      return;
+    }
+
+    try {
+      const userId = auth.currentUser?.uid;
+      if (!userId) {
+        Alert.alert('Error', 'No se pudo obtener el usuario actual. Inténtalo de nuevo.');
+        return;
+      }
+
+      // Actualizar el documento con el servicio seleccionado
+      const userDocRef = doc(firestore, 'users', userId);
+      await updateDoc(userDocRef, {
+        service: selectedService, // Añadir el servicio seleccionado
+        registrationStep: 3, // Actualizar el paso de registro
+      });
+
+      router.push('/register/serviceprice'); // Avanzar a la siguiente pantalla
+    } catch (error) {
+      console.error('Error al guardar el servicio:', error);
+      Alert.alert('Error', 'No se pudo guardar el servicio. Inténtalo más tarde.');
+    }
+  };
+
+  const renderService = ({ item }) => (
     <TouchableOpacity
       style={styles.dropdownOption}
       onPress={() => {
@@ -28,18 +66,13 @@ const ServiceSelectionScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Botón Back */}
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="arrow-back-outline" size={24} color="black" />
       </TouchableOpacity>
 
-      {/* Título */}
       <Text style={styles.title}>¿Qué servicios ofrecerás?</Text>
-      
-      {/* Imágenes */}
-        <Image source={require('../../assets/images/people.png')} style={styles.imagen} />
+      <Image source={require('../../assets/images/people.png')} style={styles.imagen} />
 
-      {/* Dropdown */}
       <TouchableOpacity
         style={styles.dropdownTrigger}
         onPress={() => setDropdownVisible(true)}
@@ -71,22 +104,11 @@ const ServiceSelectionScreen = () => {
         </TouchableOpacity>
       </Modal>
 
-      {/* Botón Continuar */}
-      <TouchableOpacity
-        style={styles.continueButton}
-        onPress={() => {
-          if (selectedService) {
-            router.push('/register/serviceprice');
-          } else {
-            alert('Por favor, seleccione un servicio.');
-          }
-        }}
-      >
+      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
         <Text style={styles.continueButtonText}>Continuar</Text>
       </TouchableOpacity>
 
-      {/* Ayuda */}
-      <TouchableOpacity style={styles.helpContainer} onPress={() => console.log('¿Necesitas ayuda?')}>
+      <TouchableOpacity style={styles.helpContainer}>
         <Text style={styles.helpText}>¿Necesitas ayuda?</Text>
         <Ionicons name="help-circle-outline" size={20} color="black" />
       </TouchableOpacity>
@@ -192,4 +214,3 @@ const styles = StyleSheet.create({
 });
 
 export default ServiceSelectionScreen;
-

@@ -23,7 +23,7 @@ const RegistrationCompleteScreen = () => {
       {/* Botón para volver al inicio */}
       <TouchableOpacity
         style={styles.continueButton}
-        onPress={() => router.push('/map/home')} // Cambia esta ruta según la pantalla de inicio de tu app
+        onPress={() => router.push('/profilemomentaneo')} // Cambia esta ruta según la pantalla de inicio de tu app
       >
         <Text style={styles.continueButtonText}>Ir al Inicio</Text>
       </TouchableOpacity>
