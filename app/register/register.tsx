@@ -25,14 +25,15 @@ const RegisterScreen = () => {
       Alert.alert('Error', 'Por favor, completa todos los campos.');
       return;
     }
-
+  
     try {
-      const userId = auth.currentUser?.uid; 
+      const userId = auth.currentUser?.uid;
       if (!userId) {
         Alert.alert('Error', 'No se pudo obtener el usuario actual. Inténtalo de nuevo.');
         return;
       }
-
+  
+      // Guardar la información del usuario
       const userDocRef = doc(firestore, 'users', userId);
       await setDoc(userDocRef, {
         nombre,
@@ -40,15 +41,17 @@ const RegisterScreen = () => {
         rut,
         fechaNacimiento,
         telefono,
-        registrationStep: 2, 
+        registrationStep: 2,
       });
-
-      router.push('/register/profiletype');
+  
+      // Pasar a la pantalla de selección de servicios
+      router.push('/register/profiletype'); 
     } catch (error) {
       console.error('Error al guardar los datos:', error);
       Alert.alert('Error', 'No se pudieron guardar los datos. Inténtalo más tarde.');
     }
   };
+  
 
   return (
     <View style={styles.container}>

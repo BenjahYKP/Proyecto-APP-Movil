@@ -1,11 +1,40 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { doc, updateDoc } from 'firebase/firestore'; // Importa updateDoc
+import { auth, firestore } from '../../config/firebase'; // Asegúrate de tener bien configurado tu Firestore y Auth
 
 const ServicePricingScreen = () => {
   const router = useRouter();
   const [price, setPrice] = useState('');
+
+  const handleContinue = async () => {
+    if (!price) {
+      Alert.alert('Error', 'Por favor, ingrese el precio del servicio.');
+      return;
+    }
+
+    try {
+      const userId = auth.currentUser?.uid; // Obtén el ID del usuario autenticado
+      if (!userId) {
+        Alert.alert('Error', 'No se pudo identificar al usuario.');
+        return;
+      }
+
+      // Actualiza el campo 'servicePrice' en el documento del usuario
+      const userDocRef = doc(firestore, 'users', userId);
+      await updateDoc(userDocRef, {
+        servicePrice: price,
+      });
+
+      Alert.alert('Éxito', 'Precio registrado correctamente');
+      router.push('/register/finishregister');
+    } catch (error) {
+      console.error('Error al registrar el precio:', error);
+      Alert.alert('Error', 'Hubo un problema al registrar el precio. Inténtalo de nuevo.');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -17,7 +46,6 @@ const ServicePricingScreen = () => {
       {/* Título */}
       <Text style={styles.title}>¿Cuál es el precio del servicio a ofrecer?</Text>
       <Image source={require('../../assets/images/money.png')} style={styles.image} />
-      
 
       {/* Input Precio */}
       <TextInput
@@ -28,17 +56,7 @@ const ServicePricingScreen = () => {
       />
 
       {/* Botón Continuar */}
-      <TouchableOpacity
-        style={styles.continueButton}
-        onPress={() => {
-          if (price) {
-            alert('Precio registrado correctamente');
-            router.push('/register/finishregister');
-          } else {
-            alert('Por favor, ingrese el precio del servicio.');
-          }
-        }}
-      >
+      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
         <Text style={styles.continueButtonText}>Continuar</Text>
       </TouchableOpacity>
     </View>
